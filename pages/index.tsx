@@ -1,22 +1,24 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 
 import CommentThread from '../components/CommentThread';
-
-import { Header } from '../components/Header';
+import { Competativness } from '../components/Competativness';
+import { History } from '../components/History';
+import { Spirit } from '../components/Spirit';
+import { Volanteerism } from '../components/Volanteerism';
+import { Who } from '../components/Who';
 
 const Home: NextPage = () => (
-  <div className="mx-auto max-w-[700px] p-4">
-    <Head>
-      <title>Kaimana Koed</title>
-      {/* <meta name="description" content="Spooky scary internet themed frisbee memes" /> */}
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    <Header page="home" />
-    <main>some content here</main>
-    <div className="mt-16">
-      <CommentThread id="example" />
-    </div>
+  <div className="flex justify-center w-full">
+    <main className="m-4 max-w-[900px] bg-[#35013F] bg-opacity-50 py-4 px-8 rounded-md text-slate-200">
+      <Who />
+      <Spirit />
+      <Competativness />
+      <Volanteerism />
+      <History />
+      <div className="mt-16">
+        <CommentThread id="kaimana" />
+      </div>
+    </main>
   </div>
 );
 

@@ -38,11 +38,22 @@ builder.queryField('commentThread', (t) =>
     args: {
       id: t.arg.id({ required: true }),
     },
-    resolve: (query, root, args) =>
-      db.commentThread.findUniqueOrThrow({
+    resolve: async (query, root, args) => {
+      const thread = await db.commentThread.findUnique({
         ...query,
         where: { id: String(args.id) },
-      }),
+      });
+
+      if (thread) {
+        return thread;
+      }
+
+      return db.commentThread.create({
+        data: {
+          id: String(args.id),
+        },
+      });
+    },
   }),
 );
 

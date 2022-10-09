@@ -8,7 +8,7 @@
     "lint": "next lint",
     "prepare": "prisma generate --data-proxy",
     "generate": "graphql-codegen",
-    "dev": "concurrently \"pnpm next dev\" \"pnpm generate --watch './graphql/**/*.ts'\"",
+    "dev": "concurrently \"pnpm next dev --port 4000\" \"pnpm generate --watch './graphql/**/*.ts'\"",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
   "prisma": {
@@ -45,7 +45,9 @@
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-query": "^3.39.2"
+    "react-query": "^3.39.2",
+    "sass": "^1.55.0",
+    "scss": "^0.2.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.1",

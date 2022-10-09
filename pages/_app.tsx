@@ -1,5 +1,4 @@
-import '../styles/index.css';
-import 'tailwindcss/tailwind.css';
+import '../styles/index.scss';
 import '@uppy/core/dist/style.css';
 import '@uppy/progress-bar/dist/style.css';
 
