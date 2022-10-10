@@ -13,8 +13,17 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Caveat&family=Chango&display=swap"
           rel="stylesheet"
         />
+        <script>
+          {
+            /* js */ `
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', \`\${vh}px\`);
+            `
+          }
+        </script>
       </Head>
       <body>
+        <div className="main-bg absolute -z-10"></div>
         <Main />
         <NextScript />
       </body>

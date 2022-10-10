@@ -42,14 +42,18 @@ body {
 
 #__next {
   height: 100%;
+  overflow: scroll;
+}
+
+.main-bg {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
   background: url(/bg_bggenerator_com.png);
   background-repeat: no-repeat;
   background-size: auto;
   background-size: cover;
   background-position: center;
-  overflow: scroll;
-  height: 100%;
-  width: 100%;
 }
 
 * {
