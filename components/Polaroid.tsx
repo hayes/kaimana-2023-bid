@@ -23,7 +23,7 @@ export function Polaroid({
         full ? 'w-[80%] m-auto' : 'max-w-[70%] md:max-w-[50%]'
       } overflow-hidden ${side === 'left' && 'float-left'} ${
         side === 'right' && 'float-right'
-      } relative shadow-xl bg-white p-4 rounded-sm hover:z-10 hover:rotate-0 hover:scale-[1.3] transition-all hover:grayscale-0 grayscale-[20%] duration-500 ${rotate} scale-[80%]`}
+      } relative shadow-xl bg-white p-4 rounded-sm z-10 hover:rotate-0 hover:scale-[1.3] transition-all hover:grayscale-0 grayscale-[20%] duration-500 ${rotate} scale-[80%]`}
     >
       {src && <img alt="polaroid image" src={src as string} {...imageProps} />}
       <div className="text-[#400D51] text-center text-lg">{caption}</div>
