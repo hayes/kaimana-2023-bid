@@ -28,6 +28,7 @@ builder.prismaObject('Comment', {
     thread: t.relation('thread'),
     name: t.exposeString('name'),
     comment: t.exposeString('comment'),
+    url: t.exposeString('url', { nullable: true }),
     type: t.exposeString('type'),
   }),
 });
@@ -61,6 +62,7 @@ const CommentInput = builder.inputType('CommentInput', {
   fields: (t) => ({
     name: t.string({ required: true }),
     comment: t.string({ required: true }),
+    url: t.string(),
     type: t.string({ required: false }),
   }),
 });
@@ -105,6 +107,7 @@ builder.mutationField('addComment', (t) =>
             comment: args.comment.comment,
             threadId: String(args.threadId),
             type: args.comment.type ?? 'text',
+            url: args.comment.url,
           },
         })
         .thread({

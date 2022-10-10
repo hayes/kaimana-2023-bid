@@ -7,6 +7,7 @@ import {
 } from '../graphql/__generated__/operations.generated';
 import { useTimeSince } from '../lib/useTimeSince';
 import { ImageUpload } from './ImageUpload';
+import { Polaroid } from './Polaroid';
 
 gql`
   query commentThread($id: ID!) {
@@ -18,6 +19,7 @@ gql`
         name
         comment
         type
+        url
       }
     }
   }
@@ -32,20 +34,25 @@ gql`
         name
         comment
         createdAt
+        url
       }
     }
   }
 `;
 
 gql`
-  mutation addImageComment($threadId: ID!, $name: String!, $url: String!) {
-    addComment(threadId: $threadId, comment: { name: $name, comment: $url, type: "image" }) {
+  mutation addImageComment($threadId: ID!, $name: String!, $comment: String!, $url: String!) {
+    addComment(
+      threadId: $threadId
+      comment: { name: $name, comment: $comment, url: $url, type: "image" }
+    ) {
       id
       comments {
         id
         name
         comment
         createdAt
+        url
       }
     }
   }
@@ -84,21 +91,34 @@ export default function CommentThread(props: { id: string }) {
   const thread = data!.commentThread;
 
   return (
-    <div className="mb-16 clear-both">
-      <h2 className="text-2xl bold my-4">Post a picture or say Hi!</h2>
-      <div className="my-4">
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+    <div className="mb-16">
+      <h2 className="text-2xl bold my-4">Share what Kaimana means to you!</h2>
+      <div>
+        <label htmlFor="name" className="block text-md">
           Who are you?
         </label>
         <div className="mt-1">
           <input
             onChange={(ev) => setName(ev.target.value)}
             value={name}
-            type="text"
             name="name"
-            id="name"
-            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md "
-            placeholder="Enter your oldest screen name"
+            className="block border-1 rounded-sm sm:text-sm w-full sm:w-1/2 sm:min-w-64 bg-opacity-50 bg-black my-4 focus:border-none ring-0 outline-none p-2"
+            placeholder="Your name"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="name" className="block text-md">
+          Share a memory or a note about what Kaimana means to you
+        </label>
+        <div className="mt-1">
+          <textarea
+            onChange={(ev) => setNewComment(ev.target.value)}
+            value={newComment}
+            name="comment"
+            className="block border-1 rounded-sm sm:text-sm w-full sm:w-1/2 sm:min-w-64 bg-opacity-50 bg-black my-4 focus:border-none ring-0 outline-none p-2"
+            placeholder="Comment"
           />
         </div>
       </div>
@@ -111,6 +131,7 @@ export default function CommentThread(props: { id: string }) {
           onComplete={(url) => {
             addImageComment({
               variables: {
+                comment: newComment,
                 threadId: props.id,
                 url,
                 name,
@@ -120,25 +141,9 @@ export default function CommentThread(props: { id: string }) {
         />
       )}
 
-      <div className="my-4">
-        <label htmlFor="comment" className="block text-sm font-medium text-gray-700">
-          Comment
-        </label>
-        <div className="mt-1">
-          <textarea
-            onChange={(ev) => setNewComment(ev.target.value)}
-            value={newComment}
-            name="comment"
-            id="comment"
-            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-            placeholder="Say something nice"
-          />
-        </div>
-      </div>
-
       <button
         type="button"
-        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-300 disabled:cursor-default"
+        className="my-4 items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-300 disabled:cursor-default"
         disabled={!newComment || !name}
         onClick={() => {
           addComment({
@@ -165,10 +170,8 @@ export default function CommentThread(props: { id: string }) {
 function Comment({
   comment,
 }: {
-  comment: { createdAt: string; name: string; comment: string; type: string };
+  comment: { createdAt: string; name: string; comment: string; type: string; url?: string | null };
 }) {
-  console.log(comment);
-  const timeSince = useTimeSince(new Date(comment.createdAt));
   return (
     <li>
       <div className="relative pt-8 my-8">
@@ -176,17 +179,11 @@ function Comment({
           <span className="font-bold">{comment.name}</span> says:
         </span>
 
-        {comment.type === 'image' ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            alt="image-comment"
-            className="m-auto max-w-full max-h-[350px]"
-            src={comment.comment}
-          />
+        {comment.type === 'image' && comment.url ? (
+          <Polaroid src={comment.url} caption={comment.comment} full></Polaroid>
         ) : (
           <span className="block px-16 italic text-lg font-sans">{comment.comment}</span>
         )}
-        <span className="float-right text-xs">{timeSince}</span>
       </div>
     </li>
   );

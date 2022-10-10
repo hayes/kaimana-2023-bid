@@ -1,27 +1,32 @@
-import Image from 'next/image';
+/* eslint-disable @next/next/no-img-element */
 import { ImageProps } from 'next/image';
 import { ReactNode } from 'react';
 
-export interface PolaroidProps extends ImageProps {
+export interface PolaroidProps extends Partial<ImageProps> {
   side?: 'left' | 'right';
   rotate?: 'rotate-3' | '-rotate-3' | 'rotate-6' | '-rotate-6';
   caption: ReactNode;
+  full?: boolean;
 }
 
 export function Polaroid({
   side,
   caption,
+  src,
   rotate = side === 'left' ? 'rotate-6' : '-rotate-3',
+  full,
   ...imageProps
 }: PolaroidProps) {
   return (
     <div
-      className={`polaroid max-w-[50%] min-w-[250px] ${side === 'left' && 'float-left'} ${
+      className={`polaroid ${
+        full ? 'w-[80%] m-auto' : 'max-w-[70%] md:max-w-[50%]'
+      } overflow-hidden ${side === 'left' && 'float-left'} ${
         side === 'right' && 'float-right'
       } shadow-xl bg-white p-4 rounded-sm hover:rotate-0 hover:scale-[1.3] transition-all hover:grayscale-0 grayscale-[20%] duration-500 ${rotate} scale-[80%]`}
     >
-      <Image alt="polaroid image" {...imageProps} />
-      <div className="text-[#400D51] text-center">{caption}</div>
+      {src && <img alt="polaroid image" src={src as string} {...imageProps} />}
+      <div className="text-[#400D51] text-center text-lg">{caption}</div>
     </div>
   );
 }

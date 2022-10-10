@@ -28,6 +28,7 @@ model Comment {
   threadId  String
   name      String
   comment   String
+  url       String?
   type      String        @default("text")
 }
 

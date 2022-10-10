@@ -1,19 +1,21 @@
 import { Polaroid } from './Polaroid';
-import shoee from '../public/18921688_10103775083414371_8236959066900225041_n.jpg';
+import shoee from '../public/91706347_2796922907070250_7842086167636869120_n.jpg';
 
 const text = `
-We believe that spirit goes beyond games and high-fives after a game.  On the field we want to emphasize more traditional sportsmanship and fair-mindedness to allow both teams to showcase their talent and play the game we all love to the best of our abilities.  Off the field, we see these tournaments that bring people from all over the world as an opportunity to meet new people and learn from other communities, and we want to be as intentional about making those connections as we are about the way we play.
+We believe that spirit goes beyond high-five lines and spirit games.  On the field we want to emphasize sportsmanship and fair-mindedness, so that both teams can play the game we love and showcase the best of their abilities.  Off the field, we see these tournaments that bring people from all over the world as an opportunity to meet new people and learn from other communities, and we want to be as intentional about making those connections as we are about the way we play.
 
-While this team has a strong focus on competitiveness many of us have a long history of playing on teams known for their spirit:
+We strive to avoid associated aspects of "spirit" that can be exclusionary or uncomfortable - we won't force participation in activities and we consider drinking to be a strictly opt-in activity.  We want everyone to have an experience they are excited about, not one that they feel obligated to participate in.
 
-We have many players who have won or been runners-up for spirit at Kaimana in the past on teams like: The DivaCup Dragons, The Pastryarchy, and Gothic Wonderland.  A few of is have also won spirit at some other large tournaments like Sunbreak/Potlatch (Emergency Bourbon).
+While this team does have a strong focus on competitiveness, many of us also have a long history of playing on teams known for their spirit:
+
+We have many players who have won or been fan favorites for spirit at Kaimana in the past on teams like the Diva Cup Dragons, The Pastriarchy, and Gothic Wonderland.  A few of us have also won spirit at some other large tournaments, like Sunbreak (Emergency Bourbon).
 `;
 
 export function Spirit() {
   return (
     <div className="clear-both">
-      <h1 className="text-4xl my-8">Spirit</h1>
-      <Polaroid {...shoee} caption="DivaCup Dragons Dancing" side="left" />
+      <h1 className="text-2xl sm:text-4xl my-8">Spirit</h1>
+      <Polaroid {...shoee} caption="Shoeys with the Boyz! (Kiamana 2020)" side="left" />
       {text
         .split('\n')
         .map((line) => line.trim())

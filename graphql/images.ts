@@ -4,12 +4,6 @@ import { randomUUID } from 'crypto';
 import { s3 } from '../lib/s3';
 import { builder } from './builder';
 
-export const bucketParams = {
-  Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
-  Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
-  Body: 'BODY',
-};
-
 const UploadURL = builder.simpleObject('UploadURL', {
   fields: (t) => ({
     uploadUrl: t.string(),
@@ -24,7 +18,7 @@ builder.mutationField('createUploadUrl', (t) =>
       extension: t.arg.string(),
     },
     resolve: async (parent, args) => {
-      const bucket = 'hanford-howl-2021';
+      const bucket = 'kiamana-koed-bid-2023';
       const key = `${randomUUID()}${args.extension ? `.${args.extension}` : ''}`;
       const command = new PutObjectCommand({
         Bucket: bucket,

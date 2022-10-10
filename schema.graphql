@@ -6,12 +6,14 @@ type Comment {
   thread: CommentThread!
   type: String!
   updatedAt: DateTime!
+  url: String
 }
 
 input CommentInput {
   comment: String!
   name: String!
   type: String
+  url: String
 }
 
 type CommentThread {
