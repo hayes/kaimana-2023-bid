@@ -15,7 +15,7 @@ export function Spirit() {
   return (
     <div className="clear-both">
       <h1 className="text-2xl sm:text-4xl my-8">Spirit</h1>
-      <Polaroid {...shoee} caption="Shoeys with the Boyz! (Kiamana 2020)" side="left" />
+      <Polaroid {...shoee} caption="Shoeys with the Boyz! (Kaimana 2020)" side="left" />
       {text
         .split('\n')
         .map((line) => line.trim())
