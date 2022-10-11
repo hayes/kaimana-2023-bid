@@ -159,8 +159,8 @@ export default function CommentThread(props: { id: string }) {
       </button>
 
       <ol className="my-8">
-        {thread.comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+        {thread.comments.map((comment, i) => (
+          <Comment key={comment.id} comment={comment} rotate={i % 2 ? 'rotate-3' : '-rotate-3'} />
         ))}
       </ol>
     </div>
@@ -169,8 +169,16 @@ export default function CommentThread(props: { id: string }) {
 
 function Comment({
   comment,
+  rotate,
 }: {
-  comment: { createdAt: string; name: string; comment: string; type: string; url?: string | null };
+  comment: {
+    createdAt: string;
+    name: string;
+    comment: string;
+    type: string;
+    url?: string | null;
+  };
+  rotate: 'rotate-3' | '-rotate-3';
 }) {
   return (
     <li>
@@ -179,11 +187,7 @@ function Comment({
           <span className="font-bold">{comment.name}</span> says:
         </span>
 
-        {comment.type === 'image' && comment.url ? (
-          <Polaroid src={comment.url} caption={comment.comment} full></Polaroid>
-        ) : (
-          <span className="block px-16 italic text-lg font-sans">{comment.comment}</span>
-        )}
+        <Polaroid src={comment.url} caption={comment.comment} full rotate={rotate}></Polaroid>
       </div>
     </li>
   );

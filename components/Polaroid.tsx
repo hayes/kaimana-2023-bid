@@ -2,11 +2,12 @@
 import { ImageProps } from 'next/image';
 import { ReactNode } from 'react';
 
-export interface PolaroidProps extends Partial<ImageProps> {
+export interface PolaroidProps extends Omit<Partial<ImageProps>, 'src'> {
   side?: 'left' | 'right';
   rotate?: 'rotate-3' | '-rotate-3' | 'rotate-6' | '-rotate-6';
   caption: ReactNode;
   full?: boolean;
+  src?: string | null;
 }
 
 export function Polaroid({
